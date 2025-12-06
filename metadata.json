@@ -1,0 +1,7 @@
+{
+  "name": "iLoveQR CLOUDFARE",
+  "description": "A fast, 100% client-side QR Code generator with a polished liquid-glass and purple neon UI. Users can create, style, download, and share QR codes (PNG & SVG). It also includes an optional camera-based scanner.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
