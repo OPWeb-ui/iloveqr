@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import QRCodeGenerator from './components/QRCodeGenerator';
 import ScannerModal from './components/ScannerModal';
@@ -148,7 +149,7 @@ const App: React.FC = () => {
               </button>
             </Tooltip>
             {isSupportOpen && (
-              <div className="absolute right-0 top-full mt-4 w-72 md:w-80 bg-[#0a0a0f]/95 backdrop-blur-3xl rounded-xl p-6 animate-slide-in-up-fade shadow-[0_50px_100_rgba(0,0,0,0.8)] border border-white/10 ring-1 ring-white/5 z-50">
+              <div className="absolute right-0 top-full mt-4 w-72 md:w-80 bg-[#0a0a0f]/95 backdrop-blur-3xl rounded-xl p-6 animate-slide-in-up-fade shadow-[0_50px_100px_rgba(0,0,0,0.8)] border border-white/10 ring-1 ring-white/5 z-[1000]">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400">
                     <Mail size={20} />

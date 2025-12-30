@@ -46,7 +46,7 @@ const CustomSelect: React.FC<{ options: { value: string; label: string }[]; valu
         <ChevronDown size={12} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} text-white/50 shrink-0`} />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1.5 w-full bg-[#0a0a0f] border border-white/10 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,1)] z-[300] max-h-48 overflow-y-auto py-1">
+        <div className="absolute top-full mt-1.5 w-full bg-[#0a0a0f] border border-white/10 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,1)] z-[600] max-h-48 overflow-y-auto py-1">
           {options.map(option => (
             <button
               key={option.value}
@@ -139,8 +139,8 @@ const ControlsPanel: React.FC<any> = (props) => {
   };
 
   return (
-    <div className="glass-card rounded-xl h-full flex flex-col shadow-2xl relative border-white/5 overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 md:px-8 md:py-4 border-b border-white/10 bg-white/[0.01] sticky top-0 z-[250] backdrop-blur-md">
+    <div className="glass-card rounded-xl h-full flex flex-col shadow-2xl relative border-white/5">
+      <div className="flex items-center justify-between px-5 py-3 md:px-8 md:py-4 border-b border-white/10 bg-white/[0.01] sticky top-0 z-[250] backdrop-blur-md rounded-t-xl">
         <div className="flex items-center gap-2 md:gap-3">
           <Settings2 size={14} className="text-cyan-400" />
           <h2 className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/90">Generator Studio</h2>
@@ -159,8 +159,8 @@ const ControlsPanel: React.FC<any> = (props) => {
         <TabButton active={activeTab === 'brand'} onClick={() => setActiveTab('brand')} icon={<Fingerprint size={16} />} label="Signature" />
       </div>
 
-      <div className="flex-grow overflow-y-auto scrollbar-hide flex flex-col overflow-x-hidden">
-        <div className="p-4 md:p-8 pb-6 md:pb-12 min-h-[250px] md:min-h-[320px]">
+      <div className="flex-grow overflow-y-auto scrollbar-hide flex flex-col shrink-0">
+        <div className="p-4 md:p-8 pb-12 md:pb-20 min-h-[250px] md:min-h-[320px]">
           {activeTab === 'content' && (
             <div className="space-y-4 md:space-y-8 animate-tab-transition">
               <Section title="Input Data">
@@ -370,7 +370,7 @@ const ControlsPanel: React.FC<any> = (props) => {
         </div>
       </div>
 
-      <div className="p-3 md:p-6 bg-[#040406] border-t border-white/10 flex gap-2 md:gap-4 relative z-[400] shrink-0">
+      <div className="p-3 md:p-6 bg-[#040406] border-t border-white/10 flex gap-2 md:gap-4 relative z-[400] shrink-0 rounded-b-xl">
         <div className="flex-1 relative" ref={downloadRef}>
           <button 
             onClick={() => setIsDownloadOpen(!isDownloadOpen)}
@@ -382,7 +382,7 @@ const ControlsPanel: React.FC<any> = (props) => {
           </button>
           
           {isDownloadOpen && (
-            <div className="absolute bottom-full mb-4 w-full bg-[#0a0a0f] p-1.5 rounded-sm shadow-[0_30px_60px_rgba(0,0,0,1)] border border-white/10 z-[500] animate-slide-in-up-fade">
+            <div className="absolute bottom-full mb-4 w-full bg-[#0a0a0f] p-1.5 rounded-sm shadow-[0_30px_60px_rgba(0,0,0,1)] border border-white/10 z-[700] animate-slide-in-up-fade">
               <div className="flex flex-col gap-1">
                 {[
                   { id: 'png', label: 'PNG Image', meta: 'Universal Raster', icon: <ImageIcon size={14}/>, action: () => props.onDownload('png') },
