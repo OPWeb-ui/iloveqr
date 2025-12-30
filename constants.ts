@@ -1,3 +1,4 @@
+
 import type { QROptions, Preset, LabelOptions } from './types';
 
 export const DEFAULT_OPTIONS: QROptions = {
@@ -14,10 +15,11 @@ export const DEFAULT_OPTIONS: QROptions = {
     imageSize: 0.4,
     margin: 20,
     crossOrigin: 'anonymous',
+    opacity: 1,
   },
   dotsOptions: {
     color: '#A76BFF',
-    type: 'rounded',
+    type: 'square',
     gradient: {
       type: 'linear',
       rotation: Math.PI / 4,
@@ -31,7 +33,7 @@ export const DEFAULT_OPTIONS: QROptions = {
     color: 'transparent',
   },
   cornersSquareOptions: {
-    type: 'extra-rounded',
+    type: 'square',
     gradient: {
       type: 'linear',
       rotation: Math.PI / 4,
@@ -42,7 +44,7 @@ export const DEFAULT_OPTIONS: QROptions = {
     },
   },
   cornersDotOptions: {
-    type: 'dot',
+    type: 'square',
     color: '#A76BFF'
   },
 };
@@ -101,7 +103,7 @@ export const PRESETS: Preset[] = [
     options: {
       dotsOptions: {
         color: '#FFFFFF',
-        type: 'rounded',
+        type: 'square',
         gradient: {
           type: 'linear',
           rotation: 0.785,
@@ -109,7 +111,7 @@ export const PRESETS: Preset[] = [
         },
       },
       backgroundOptions: { color: 'transparent' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#A76BFF' },
+      cornersSquareOptions: { type: 'square', color: '#A76BFF' },
     },
   },
   {
@@ -122,11 +124,11 @@ export const PRESETS: Preset[] = [
     },
   },
   {
-    name: 'Cotton Candy',
+    name: 'Tech Blue',
     options: {
-      dotsOptions: { color: '#F472B6', type: 'classy-rounded', gradient: undefined },
-      backgroundOptions: { color: '#FEF2F2' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#F472B6', gradient: undefined },
+      dotsOptions: { color: '#06B6D4', type: 'square', gradient: undefined },
+      backgroundOptions: { color: '#020203' },
+      cornersSquareOptions: { type: 'square', color: '#06B6D4', gradient: undefined },
       image: '',
     },
   },
@@ -135,7 +137,7 @@ export const PRESETS: Preset[] = [
     options: {
       dotsOptions: {
         color: '#FFFFFF',
-        type: 'dots',
+        type: 'square',
         gradient: {
           type: 'linear',
           rotation: 0,
@@ -143,7 +145,7 @@ export const PRESETS: Preset[] = [
         },
       },
       backgroundOptions: { color: '#FFFFFF' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#0575E6' },
+      cornersSquareOptions: { type: 'square', color: '#0575E6' },
       image: '',
     },
   },
@@ -152,7 +154,7 @@ export const PRESETS: Preset[] = [
     options: {
       dotsOptions: {
         color: '#FFFFFF',
-        type: 'dots',
+        type: 'square',
         gradient: {
           type: 'linear',
           rotation: 0,
@@ -160,37 +162,7 @@ export const PRESETS: Preset[] = [
         },
       },
       backgroundOptions: { color: '#EEEEEE' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#111111' },
-      image: '',
-    },
-  },
-  {
-    name: 'Solar Flare',
-    options: {
-      dotsOptions: {
-        color: '#FFFFFF',
-        type: 'classy',
-        gradient: {
-          type: 'linear',
-          rotation: 0.785,
-          colorStops: [{ offset: 0, color: '#FFD60A' }, { offset: 1, color: '#FF3C78' }],
-        },
-      },
-      backgroundOptions: { color: 'transparent' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#FF3C78' },
-      image: '',
-    },
-  },
-  {
-    name: 'Emerald',
-    options: {
-      dotsOptions: {
-        color: '#008269',
-        type: 'dots',
-        gradient: undefined,
-      },
-      backgroundOptions: { color: '#F0FFF4' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#008269' },
+      cornersSquareOptions: { type: 'square', color: '#111111' },
       image: '',
     },
   },
@@ -208,70 +180,6 @@ export const PRESETS: Preset[] = [
       },
       backgroundOptions: { color: '#0A0014' },
       cornersSquareOptions: { type: 'square', color: '#FF00FF' },
-      image: '',
-    },
-  },
-  {
-    name: 'Mint Chocolate',
-    options: {
-      dotsOptions: {
-        type: 'dots',
-        gradient: {
-          type: 'linear',
-          rotation: 0,
-          colorStops: [{ offset: 0, color: '#4A2E2A' }, { offset: 1, color: '#2C1A17' }],
-        },
-      },
-      backgroundOptions: { color: '#F0FFF0' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#4A2E2A', gradient: undefined },
-      image: '',
-    },
-  },
-  {
-    name: 'Royal Gold',
-    options: {
-      dotsOptions: {
-        type: 'classy',
-        gradient: {
-          type: 'linear',
-          rotation: 0.785,
-          colorStops: [{ offset: 0, color: '#FFD700' }, { offset: 1, color: '#B8860B' }],
-        },
-      },
-      backgroundOptions: { color: '#2d004f' },
-      cornersSquareOptions: { type: 'dot', color: '#B8860B', gradient: undefined },
-      image: '',
-    },
-  },
-  {
-    name: 'Strawberry Daiquiri',
-    options: {
-      dotsOptions: {
-        type: 'rounded',
-        gradient: {
-          type: 'linear',
-          rotation: 0.785,
-          colorStops: [{ offset: 0, color: '#FF005E' }, { offset: 1, color: '#FF6347' }],
-        },
-      },
-      backgroundOptions: { color: '#FFF0F5' },
-      cornersSquareOptions: { type: 'extra-rounded', color: '#FF005E', gradient: undefined },
-      image: '',
-    },
-  },
-  {
-    name: 'Glitch Matrix',
-    options: {
-      dotsOptions: {
-        type: 'dots',
-        gradient: {
-          type: 'linear',
-          rotation: Math.PI / 2,
-          colorStops: [{ offset: 0, color: '#39FF14' }, { offset: 1, color: '#008F11' }],
-        },
-      },
-      backgroundOptions: { color: '#050505' },
-      cornersSquareOptions: { type: 'square', color: '#39FF14', gradient: undefined },
       image: '',
     },
   },

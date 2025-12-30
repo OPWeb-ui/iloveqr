@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { X, VideoOff, Zap } from 'lucide-react';
 
@@ -88,7 +89,7 @@ const ScannerModal: React.FC<ScannerModalProps> = ({ onClose, onScanSuccess }) =
 
   const handleClose = () => {
     setIsClosing(true);
-    setTimeout(onClose, 300); // Wait for animation to finish
+    setTimeout(onClose, 200); // Snappier exit
   };
 
   const toggleFlash = async () => {
@@ -107,62 +108,57 @@ const ScannerModal: React.FC<ScannerModalProps> = ({ onClose, onScanSuccess }) =
 
   return (
     <div 
-      className={`fixed inset-0 bg-gray-900/50 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
+      className={`fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[200] transition-opacity duration-200 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
       onClick={handleClose}
     >
       <div 
-        className={`bg-gray-50 dark:bg-[#1e1e1e] text-gray-800 dark:text-gray-200 rounded-3xl shadow-2xl w-full max-w-md m-4 p-4 relative overflow-hidden ${isClosing ? 'animate-slide-out-down-fade' : 'animate-slide-in-up-fade'}`}
+        className={`bg-[#0a0a0f] text-white rounded-3xl shadow-[0_50px_100px_rgba(0,0,0,0.9)] w-full max-w-md m-4 p-6 relative overflow-hidden transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${isClosing ? 'scale-90 translate-y-8 opacity-0' : 'scale-100 translate-y-0 opacity-100'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={handleClose} className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors z-20">
-          <X size={24} />
+        <button onClick={handleClose} className="absolute top-5 right-5 text-white/40 hover:text-white transition-colors z-20 p-2 hover:bg-white/5 rounded-full">
+          <X size={28} />
         </button>
-        <h2 className="text-xl font-bold text-center mb-4 bg-gradient-to-r from-[#A76BFF] to-[#FF4BC8] text-transparent bg-clip-text">QR Scanner</h2>
-        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-black border border-black/10 dark:border-white/10">
+        <h2 className="text-2xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text uppercase tracking-tighter">QR Scanner</h2>
+        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-black border border-white/10 shadow-inner">
           <video ref={videoRef} className="w-full h-full object-cover" />
           <canvas ref={canvasRef} className="hidden" />
           {error && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#1e1e1e]/80 text-center p-4">
-              <VideoOff size={48} className="text-red-500 mb-4" />
-              <p className="text-red-500">{error}</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 text-center p-8">
+              <VideoOff size={64} className="text-red-500/50 mb-6" />
+              <p className="text-red-500 font-bold uppercase tracking-widest text-sm">{error}</p>
             </div>
           )}
           {!error && (
             <>
-              <div className="absolute inset-0 border-4 border-black/10 rounded-2xl pointer-events-none"></div>
-              <div className="scanner-line absolute left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#FF4BC8] to-transparent"></div>
+              <div className="absolute inset-0 border-[12px] border-black/20 rounded-2xl pointer-events-none"></div>
+              <div className="scanner-line absolute left-0 w-full h-2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+              <div className="absolute top-4 left-4 w-12 h-12 border-t-4 border-l-4 border-cyan-400/60 rounded-tl-xl pointer-events-none"></div>
+              <div className="absolute top-4 right-4 w-12 h-12 border-t-4 border-r-4 border-cyan-400/60 rounded-tr-xl pointer-events-none"></div>
+              <div className="absolute bottom-4 left-4 w-12 h-12 border-b-4 border-l-4 border-cyan-400/60 rounded-bl-xl pointer-events-none"></div>
+              <div className="absolute bottom-4 right-4 w-12 h-12 border-b-4 border-r-4 border-cyan-400/60 rounded-br-xl pointer-events-none"></div>
             </>
           )}
            {isFlashSupported && (
             <button
               onClick={toggleFlash}
-              className={`absolute bottom-4 right-4 p-3 rounded-full transition-all duration-300 z-20 ${
-                isFlashOn ? 'bg-yellow-400 text-black shadow-lg' : 'bg-black/20 dark:bg-black/40 text-white backdrop-blur-sm'
+              className={`absolute bottom-6 right-6 p-4 rounded-2xl transition-all duration-200 z-20 ${
+                isFlashOn ? 'bg-cyan-400 text-black shadow-[0_0_30px_rgba(34,211,238,0.5)]' : 'bg-black/40 text-white/80 backdrop-blur-xl border border-white/10'
               }`}
-              aria-label={isFlashOn ? 'Turn off flash' : 'Turn on flash'}
             >
-              <Zap size={20} />
+              <Zap size={24} />
             </button>
           )}
         </div>
-        <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">Point your camera at a QR code</p>
+        <p className="text-center text-white/40 mt-6 text-[11px] font-black uppercase tracking-[0.2em]">Align matrix within guides</p>
         <style>{`
           @keyframes scan-animation {
-            0% { 
-              top: 0;
-              opacity: 0.7;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% { 
-              top: calc(100% - 6px); /* 6px is height */
-              opacity: 0.7;
-            }
+            0% { top: 0; opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { top: calc(100% - 8px); opacity: 0.5; }
           }
           .scanner-line {
-            animation: scan-animation 3s ease-in-out infinite alternate;
-            box-shadow: 0 0 20px 2px rgba(255, 75, 200, 0.7);
+            animation: scan-animation 2.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 40px 4px rgba(34, 211, 238, 0.6);
             filter: blur(2px);
           }
         `}</style>

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import type { QROptions, LabelOptions } from '../types';
 
@@ -20,53 +21,37 @@ const QRCodePreview: React.FC<QRCodePreviewProps> = ({ text, options, labelOptio
   const [isTransitioning, setIsTransitioning] = useState(false);
   const prevOptionsRef = useRef<string>(JSON.stringify(options));
 
-  // QR Code Styling setup
   useEffect(() => {
     if (typeof window !== 'undefined' && !qrCodeRef.current && window.QRCodeStyling) {
-      qrCodeRef.current = new window.QRCodeStyling({
-        ...options,
-        data: text,
-      });
-      if (previewRef.current) {
-        qrCodeRef.current.append(previewRef.current);
-      }
+      qrCodeRef.current = new window.QRCodeStyling({ ...options, data: text });
+      if (previewRef.current) qrCodeRef.current.append(previewRef.current);
     }
   }, []);
 
-  // QR Code update with transition
   useEffect(() => {
     if (qrCodeRef.current) {
       const currentOptionsString = JSON.stringify(options);
-
-      // If only text has changed, update immediately without a visual transition.
       if (prevOptionsRef.current === currentOptionsString) {
         qrCodeRef.current.update({ data: text });
         return;
       }
-      
-      // If style options have changed (e.g., from a preset), fade it in.
       setIsTransitioning(true);
       const timer = setTimeout(() => {
-        qrCodeRef.current?.update({
-          ...options,
-          data: text,
-        });
+        qrCodeRef.current?.update({ ...options, data: text });
         setIsTransitioning(false);
-      }, 150); // Duration should match the fade-out
-
+      }, 80);
       prevOptionsRef.current = currentOptionsString;
-      
       return () => clearTimeout(timer);
     }
   }, [text, options]);
   
   const LabelComponent = () => (
     <div 
-      className="w-full text-center text-lg" 
+      className="w-full text-center text-sm sm:text-base font-black uppercase tracking-tighter" 
       style={{ 
         fontFamily: labelOptions.font, 
-        color: labelOptions.color, 
-        textShadow: '0px 1px 3px rgba(0, 0, 0, 0.5)' 
+        color: labelOptions.color,
+        textShadow: `0 0 10px ${labelOptions.color}44`
       }}
       data-label="true"
     >
@@ -74,20 +59,29 @@ const QRCodePreview: React.FC<QRCodePreviewProps> = ({ text, options, labelOptio
     </div>
   );
   
-  // Static styles and classes
-  const containerClasses = 'flex flex-col items-center justify-center p-6 sticky top-8 animate-[levitate_6s_ease-in-out_infinite] gap-4 w-full max-w-md mx-auto animate-slide-in-up-fade';
-  const containerStyles: React.CSSProperties = { animationDelay: '400ms' };
-  const innerDivClasses = `w-full [&>canvas]:w-full [&>canvas]:h-auto [&>canvas]:rounded-2xl [&>img]:rounded-2xl transition-opacity duration-150 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`;
-
   return (
     <div
       ref={previewContainerRef}
-      className={containerClasses}
-      style={containerStyles}
+      className="flex flex-col items-center justify-start pt-0 pb-2 px-2 md:py-8 md:px-0 gap-3 md:gap-4 w-full mx-auto md:sticky md:top-40 transition-all duration-300"
     >
-      {labelOptions.text && labelOptions.position === 'top' && <LabelComponent />}
-      <div ref={previewRef} className={innerDivClasses} />
-      {labelOptions.text && labelOptions.position === 'bottom' && <LabelComponent />}
+      <div className="relative group w-full max-w-[180px] md:max-w-[230px] transition-all duration-300">
+        <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-xl blur-[60px] group-hover:opacity-100 opacity-30 transition-all duration-700"></div>
+        <div className="relative glass-card p-4 sm:p-5 rounded-none border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] bg-black/60 backdrop-blur-3xl">
+          {labelOptions.text && labelOptions.position === 'top' && <div className="mb-4"><LabelComponent /></div>}
+          <div ref={previewRef} className={`w-full relative [&>canvas]:w-full [&>canvas]:h-auto [&>canvas]:rounded-none transition-all duration-200 ${isTransitioning ? 'opacity-0 scale-[0.98] blur-[2px]' : 'opacity-100 scale-100 blur-0'}`} />
+          {labelOptions.text && labelOptions.position === 'bottom' && <div className="mt-4"><LabelComponent /></div>}
+          
+          {/* Subtle Corner Accents */}
+          <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-white/20"></div>
+          <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-white/20"></div>
+          <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-white/20"></div>
+          <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-white/20"></div>
+        </div>
+      </div>
+      
+      <div className="glass px-3 py-1 sm:px-5 sm:py-2 rounded-none text-[6px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-white/20 border-white/5 shadow-xl bg-black/30">
+        Active Matrix
+      </div>
     </div>
   );
 };

@@ -15,6 +15,7 @@ export interface QROptions {
         imageSize?: number;
         crossOrigin?: string;
         margin?: number;
+        opacity?: number;
     };
     dotsOptions?: {
         type?: string;

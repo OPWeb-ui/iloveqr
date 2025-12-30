@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" style="scroll-behavior: smooth;">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iLoveQR - Free Custom QR Code Generator (PNG, SVG, PDF)</title>
+    <title>iLoveQR - Premium Glass QR Generator</title>
     <meta name="description" content="Create professional, custom QR codes instantly with iLoveQR. Add logos, colors, and gradients. Export high-quality PNG, SVG, & PDF. 100% free, secure, and client-side." />
-    <meta name="google-site-verification" content="google5d52108133b3b806" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -14,7 +13,18 @@
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Poppins', 'sans-serif'],
+              sans: ['Inter', 'Poppins', 'sans-serif'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 12s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'spin-slow': 'spin 20s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                '50%': { transform: 'translateY(-20px) scale(1.02)' },
+              }
             }
           }
         }
@@ -22,211 +32,120 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Arvo&family=Bebas+Neue&family=Cabin&family=Caveat&family=Cormorant+Garamond&family=Crimson+Text&family=Exo+2&family=Fira+Code&family=Inconsolata&family=Josefin+Sans&family=Lato&family=Lobster&family=Lora&family=Major+Mono+Display&family=Merriweather&family=Montserrat&family=Nunito&family=Open+Sans&family=Oswald&family=Pacifico&family=Playfair+Display&family=Poppins:wght@400;500;600;700&family=Raleway&family=Roboto&family=Roboto+Mono&family=Shadows+Into+Light&family=Source+Code+Pro&family=Teko&family=Ubuntu&family=Zilla+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "iLoveQR",
-          "url": "{{SITE_URL}}",
-          "applicationCategory": "DesignApplication",
-          "operatingSystem": "Browser",
-          "browserRequirements": "Requires JavaScript. Requires HTML5.",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "description": "Create beautiful, fluid QR codes right in your browser. Features custom colors, gradients, logo embedding, and high-resolution export (PNG, SVG, PDF)."
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Can I add a logo to my QR code?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, iLoveQR allows you to upload and embed custom logos directly into the center of your QR codes."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Which file formats can I export?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "You can download your QR codes in high-resolution PNG, SVG, and PDF formats suitable for print and web."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How do I keep custom colors scannable?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Ensure high contrast between the foreground (dots) and background. Avoid using similar colors for both to maintain readability."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does iLoveQR support presets?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, we offer multiple professional design presets to help you create stunning codes instantly."
-              }
-            }
-          ]
-        },
-        {
-          "@type": "HowTo",
-          "name": "How to Create a Custom QR Code",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Enter Data",
-              "text": "Paste your URL or text data into the input field."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Customize Design",
-              "text": "Adjust colors, add gradients, choose dot styles, and upload a logo."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Export & Test",
-              "text": "Download your high-quality QR code in PNG, SVG, or PDF and test it with your camera."
-            }
-          ]
-        }
-      ]
-    }
-    </script>
     <style>
+      :root {
+        --bg-color: #020203;
+      }
       body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Inter', sans-serif;
         margin: 0;
+        background-color: var(--bg-color);
+        color: #ffffff;
+        overflow-x: hidden;
       }
       
-      @keyframes fade-in {
-        from { opacity: 0; transform: translateY(-5px); }
+      .glass {
+        background: rgba(255, 255, 255, 0.035);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-card {
+        background: rgba(10, 10, 15, 0.3);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Beam Animation Utility */
+      .beam-btn {
+        position: relative;
+        overflow: hidden;
+      }
+      .beam-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 10;
+        pointer-events: none;
+      }
+      .beam-btn:hover::before {
+        left: 150%;
+      }
+
+      .noise {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        opacity: 0.04;
+        z-index: 9999;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/baseFilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      .liquid-bg {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -1;
+        background: radial-gradient(circle at 50% 50%, #0a0a0f 0%, #020203 100%);
+      }
+
+      .blob {
+        position: absolute;
+        filter: blur(120px);
+        border-radius: 50%;
+        opacity: 0.15;
+      }
+
+      @keyframes slide-in-up-fade {
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fade-in {
-        animation: fade-in 0.3s ease-out forwards;
-      }
-      @keyframes fade-out {
-        from { opacity: 1; }
-        to { opacity: 0; }
-      }
-      .animate-fade-out {
-        animation: fade-out 0.3s ease-out forwards;
-      }
-      @keyframes slide-in-up-fade {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
       .animate-slide-in-up-fade {
-        animation: slide-in-up-fade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation: slide-in-up-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
       }
-      @keyframes slide-out-down-fade {
-        from {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-      }
-      .animate-slide-out-down-fade {
-        animation: slide-out-down-fade 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
-      }
-      @keyframes select-slide-down {
-        from {
-          opacity: 0;
-          transform: translateY(-10px) scaleY(0.9);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scaleY(1);
-        }
-      }
-      @keyframes select-slide-up {
-        from {
-          opacity: 1;
-          transform: translateY(0) scaleY(1);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(-10px) scaleY(0.9);
-        }
-      }
-      .animate-select-slide-down {
-        transform-origin: top;
-        animation: select-slide-down 0.2s ease-out forwards;
-      }
-      .animate-select-slide-up {
-        transform-origin: top;
-        animation: select-slide-up 0.2s ease-out forwards;
-      }
-      @keyframes levitate {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-12px); }
-        100% { transform: translateY(0px); }
-      }
-      @keyframes slide-up-fade-in {
-        from {
-          opacity: 0;
-          transform: translateY(10px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-      @keyframes slide-down-fade-out {
-        from {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(10px) scale(0.95);
-        }
-      }
-      .animate-slide-up-fade-in {
-        transform-origin: bottom;
-        animation: slide-up-fade-in 0.2s ease-out forwards;
-      }
-      .animate-slide-down-fade-out {
-        transform-origin: bottom;
-        animation: slide-down-fade-out 0.2s ease-out forwards;
-      }
+      
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.552.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0"
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
   <body>
+    <div class="noise"></div>
+    <div class="liquid-bg">
+      <div class="blob w-[800px] h-[800px] bg-purple-600 top-[-200px] left-[-200px] animate-pulse-slow"></div>
+      <div class="blob w-[700px] h-[700px] bg-blue-600 bottom-[-200px] right-[-200px] animate-pulse-slow" style="animation-delay: 3s;"></div>
+      <div class="blob w-[600px] h-[600px] bg-cyan-600 top-[20%] left-[50%] animate-pulse-slow" style="animation-delay: 6s;"></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
