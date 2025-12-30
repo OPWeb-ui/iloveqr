@@ -62,7 +62,7 @@ const QRCodePreview: React.FC<QRCodePreviewProps> = ({ text, options, labelOptio
   return (
     <div
       ref={previewContainerRef}
-      className="flex flex-col items-center justify-start pt-0 pb-2 px-2 md:py-8 md:px-0 gap-3 md:gap-4 w-full mx-auto md:sticky md:top-40 transition-all duration-300"
+      className="flex flex-col items-center justify-start pt-0 pb-2 px-2 md:py-8 md:px-0 gap-3 md:gap-4 w-full mx-auto relative transition-all duration-300"
     >
       <div className="relative group w-full max-w-[180px] md:max-w-[230px] transition-all duration-300">
         <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-xl blur-[60px] group-hover:opacity-100 opacity-30 transition-all duration-700"></div>

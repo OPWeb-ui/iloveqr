@@ -140,7 +140,7 @@ const ControlsPanel: React.FC<any> = (props) => {
 
   return (
     <div className="glass-card rounded-xl h-full flex flex-col shadow-2xl relative border-white/5">
-      <div className="flex items-center justify-between px-5 py-3 md:px-8 md:py-4 border-b border-white/10 bg-white/[0.01] sticky top-0 z-[250] backdrop-blur-md rounded-t-xl">
+      <div className="flex items-center justify-between px-5 py-3 md:px-8 md:py-4 border-b border-white/10 bg-white/[0.01] relative z-[250] rounded-t-xl">
         <div className="flex items-center gap-2 md:gap-3">
           <Settings2 size={14} className="text-cyan-400" />
           <h2 className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/90">Generator Studio</h2>
@@ -152,7 +152,7 @@ const ControlsPanel: React.FC<any> = (props) => {
         </Tooltip>
       </div>
 
-      <div className="flex border-b border-white/10 bg-black/20 z-[240] backdrop-blur-md shrink-0">
+      <div className="flex border-b border-white/10 bg-black/20 z-[240] shrink-0">
         <TabButton active={activeTab === 'content'} onClick={() => setActiveTab('content')} icon={<Database size={16} />} label="Payload" />
         <TabButton active={activeTab === 'design'} onClick={() => setActiveTab('design')} icon={<Layout size={16} />} label="Patterns" />
         <TabButton active={activeTab === 'colors'} onClick={() => setActiveTab('colors')} icon={<Palette size={16} />} label="Colors" />

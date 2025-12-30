@@ -18,10 +18,12 @@ const App: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   
   const supportRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     // When switching views, jump to top instantly to avoid weird travel animation
     window.scrollTo({ top: 0, behavior: 'instant' });
+    setIsHeaderVisible(true);
   }, [activeView]);
 
   useEffect(() => {
@@ -38,11 +40,15 @@ const App: React.FC = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Header visibility logic
-      if (currentScrollY < 20) {
+      // Header visibility logic: Hide on scroll down, show on scroll up
+      if (currentScrollY < 50) {
         setIsHeaderVisible(true);
-      } else {
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling Down
         setIsHeaderVisible(false);
+      } else {
+        // Scrolling Up
+        setIsHeaderVisible(true);
       }
 
       // Back to top logic
@@ -51,6 +57,8 @@ const App: React.FC = () => {
       } else {
         setShowBackToTop(false);
       }
+
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -107,7 +115,7 @@ const App: React.FC = () => {
         <ArrowUp size={24} />
       </button>
 
-      <nav className={`fixed top-0 left-0 w-full z-[100] px-4 py-3 md:px-12 md:py-8 flex justify-center transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full md:translate-y-0'}`}>
+      <nav className={`fixed top-0 left-0 w-full z-[100] px-4 py-3 md:px-12 md:py-8 flex justify-center transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <header className="w-full max-w-7xl glass rounded-xl md:rounded-2xl px-5 py-3 md:px-8 md:py-4 flex items-center justify-between border-white/5 shadow-2xl">
           <div className="flex items-center gap-3 md:gap-4 cursor-pointer group" onClick={() => setActiveView('generator')}>
             <div className="relative">
